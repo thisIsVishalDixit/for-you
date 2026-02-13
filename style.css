@@ -1,113 +1,134 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0f0c29;
-    font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
-    color: white;
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#0f0c29;
+  font-family:'Montserrat',sans-serif;
+  overflow:hidden;
+  color:white;
+  padding:15px;
 }
 
-.bg {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 30%, #ff4d88, transparent 40%),
-        radial-gradient(circle at 80% 70%, #8a2be2, transparent 40%);
-    filter: blur(120px);
-    animation: move 12s infinite alternate ease-in-out;
+/* Background Glow */
+.bg{
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle at 20% 30%, #ff4d88, transparent 40%),
+             radial-gradient(circle at 80% 70%, #8a2be2, transparent 40%);
+  filter:blur(120px);
+  animation:move 12s infinite alternate ease-in-out;
 }
 
-@keyframes move {
-    from {
-        transform: translate(-5%, -5%);
-    }
-
-    to {
-        transform: translate(5%, 5%);
-    }
+@keyframes move{
+  from{transform:translate(-5%, -5%);}
+  to{transform:translate(5%, 5%);}
 }
 
-.card {
-    position: relative;
-    width: 90%;
-    max-width: 700px;
-    padding: 60px 50px;
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(25px);
-    box-shadow: 0 0 80px rgba(255, 77, 136, 0.4);
-    text-align: center;
-    z-index: 2;
-    transition: 0.5s ease;
+/* Card */
+.card{
+  position:relative;
+  width:100%;
+  max-width:650px;
+  padding:40px 25px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(25px);
+  box-shadow:0 0 60px rgba(255,77,136,0.4);
+  text-align:center;
+  z-index:2;
+  overflow:hidden;
 }
 
-.heading {
-    font-family: 'Allura', cursive;
-    font-size: 65px;
-    margin-bottom: 40px;
-    background: linear-gradient(45deg, #ff7eb3, #ff4d88, #ff9ecf);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Heading */
+.heading{
+  font-family:'Allura',cursive;
+  font-size:48px;
+  margin-bottom:25px;
+  background:linear-gradient(45deg,#ff7eb3,#ff4d88,#ff9ecf);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-#text {
-    font-size: 22px;
-    line-height: 1.8;
-    min-height: 120px;
-    opacity: 1;
-    transition: 0.4s ease;
+/* Text */
+#text{
+  font-size:18px;
+  line-height:1.8;
+  min-height:110px;
+  margin-bottom:25px;
+  transition:opacity 0.3s ease;
 }
 
-button {
-    margin: 20px 10px 0 10px;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #ff4d88, #ff7eb3);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 77, 136, 0.6);
+/* Buttons */
+#buttons{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  position:relative;
 }
 
-button:hover {
-    transform: scale(1.1);
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff4d88,#ff7eb3);
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s ease;
+  box-shadow:0 0 15px rgba(255,77,136,0.6);
+  min-width:120px;
 }
 
-button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+button:hover{
+  transform:scale(1.08);
 }
 
-.happy {
-    animation: glow 2s infinite alternate;
+button:active{
+  transform:scale(0.95);
 }
 
-@keyframes glow {
-    from {
-        box-shadow: 0 0 50px #ff4d88;
-    }
-
-    to {
-        box-shadow: 0 0 120px #ff9ecf;
-    }
+button:disabled{
+  opacity:0.4;
+  cursor:not-allowed;
 }
 
-@media(max-width:500px) {
-    .heading {
-        font-size: 45px;
-    }
+/* Happy Glow */
+.happy{
+  animation:glow 2s infinite alternate;
+}
 
-    #text {
-        font-size: 17px;
-    }
+@keyframes glow{
+  from{box-shadow:0 0 40px #ff4d88;}
+  to{box-shadow:0 0 100px #ff9ecf;}
+}
+
+/* Mobile */
+@media(max-width:480px){
+
+  .heading{
+    font-size:38px;
+  }
+
+  #text{
+    font-size:16px;
+  }
+
+  #buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  button{
+    width:100%;
+    max-width:250px;
+  }
 }
