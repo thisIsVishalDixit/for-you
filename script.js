@@ -1,44 +1,22 @@
 const messages = [
 
-    "Sach bolu… mujhe kabhi nahi laga tha ki koi itna special ho sakta hai mere liye.",
+"Sach bolu… mujhe kabhi nahi laga tha ki koi itna special ho sakta hai mere liye.",
 
-    "Pehle life bas chal rahi thi… routine thi… normal si.",
+"Jab se tum meri life me aaye ho, sab kuch thoda sa bright ho gaya hai.",
 
-    "Phir tum aaye… aur sab kuch dheere dheere change hone laga.",
+"Pehle jo din normal lagte the… ab unme bhi excitement hoti hai.",
 
-    "Ab har chhoti baat tumse share karne ka mann karta hai.",
+"Tumhari smile mera pura mood change kar deti hai.",
 
-    "Koi funny moment ho… ya thoda sa sad feel karu… sabse pehle tum yaad aate ho.",
+"Main perfect nahi hoon… par tumhare liye jo feel karta hoon woh bilkul real hai.",
 
-    "Tumhari awaaz me ek ajeeb sa sukoon hai… jaise dimag ka noise band ho jaata hai.",
+"Tum meri comfort ho… meri safe jagah ho.",
 
-    "Tumhari smile… pata nahi kyun… par genuinely mere dil ko halka kar deti hai.",
+"Agar tum saath ho… to life ka har problem manageable lagta hai.",
 
-    "Main perfect nahi hoon… kabhi overthink karta hoon… kabhi stupid ho jaata hoon…",
+"Bas dil se ek baat poochni thi…",
 
-    "Par ek cheez pakki hai… jo feel karta hoon woh fake nahi hai.",
-
-    "Mujhe tumhari care karna accha lagta hai… bina reason bhi tumhari fikr hoti hai.",
-
-    "Aur shayad yahi pyaar hota hai… jab kisi ki khushi apni khushi se zyada important lagne lage.",
-
-    "Mujhe future ka exact idea nahi hai…",
-
-    "Par agar future me tum saath ho… to mujhe kisi cheez ka darr nahi lagta.",
-
-    "Tum meri comfort ho… meri safe jagah ho… jahan main bina pretend kiye reh sakta hoon.",
-
-    "Main bas itna chahta hoon… jab bhi tumhe kisi apne ki zarurat ho…",
-
-    "Sabse pehle mera naam aaye.",
-
-    "Aur jab life kabhi thodi mushkil ho…",
-
-    "To main tumhara haath pakad kar kahu… 'Main hoon na.'",
-
-    "Isliye aaj dil se ek simple si baat poochni hai…",
-
-    "Kya tum meri life ka permanent part banogi? ❤️"
+"Kya tum meri banogi? ❤️"
 ];
 
 let index = 0;
@@ -49,26 +27,29 @@ const nextBtn = document.getElementById("nextBtn");
 const btnContainer = document.getElementById("buttons");
 const card = document.getElementById("card");
 
-function updateText() {
+/* Update Text */
+function updateText(){
     text.style.opacity = 0;
 
     setTimeout(() => {
         text.innerText = messages[index];
         text.style.opacity = 1;
 
-        prevBtn.disabled = index === 0;
+        if(prevBtn) prevBtn.disabled = index === 0;
 
     }, 200);
 }
 
 updateText();
 
+/* Next Button */
 nextBtn.addEventListener("click", () => {
 
-    if (index < messages.length - 1) {
+    if(index < messages.length - 1){
         index++;
         updateText();
-    } else {
+    } 
+    else {
 
         text.innerText = "Please choose honestly… 💖";
 
@@ -77,24 +58,47 @@ nextBtn.addEventListener("click", () => {
             <button id="noBtn">No 🙈</button>
         `;
 
-        document.getElementById("yesBtn").addEventListener("click", () => {
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+
+        /* YES */
+        yesBtn.addEventListener("click", () => {
             card.classList.add("happy");
             text.innerText = "Happy Valentine’s Day My Love ❤️\n\nYou just made my world complete.";
             btnContainer.innerHTML = "";
         });
 
-        document.getElementById("noBtn").addEventListener("mouseover", function () {
-            this.style.position = "absolute";
-            this.style.left = Math.random() * 70 + "%";
-            this.style.top = Math.random() * 70 + "%";
-        });
-    }
+        /* NO RUN BUTTON */
+        function moveNoButton() {
 
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            const maxX = card.clientWidth - btnWidth - 20;
+            const maxY = card.clientHeight - btnHeight - 20;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noBtn.style.position = "absolute";
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        }
+
+        /* Desktop */
+        noBtn.addEventListener("mouseover", moveNoButton);
+
+        /* Mobile */
+        noBtn.addEventListener("touchstart", moveNoButton);
+    }
 });
 
-prevBtn.addEventListener("click", () => {
-    if (index > 0) {
-        index--;
-        updateText();
-    }
-});
+/* Previous */
+if(prevBtn){
+    prevBtn.addEventListener("click", () => {
+        if(index > 0){
+            index--;
+            updateText();
+        }
+    });
+}
