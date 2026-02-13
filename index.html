@@ -40,9 +40,40 @@
 
         /* TITLE */
         .card h2 {
+            font-size: 32px;
+            font-weight: 700;
             margin-bottom: 20px;
-            font-weight: 600;
+            text-align: center;
+            letter-spacing: 1px;
+
+            color: #ff2e63;
+            /* romantic pink */
+
+            text-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.2),
+                0 0 8px rgba(255, 46, 99, 0.4);
         }
+
+        /* Cute small heart pulse */
+        .card h2 span {
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
 
         /* TEXT AREA */
         .text-area {
@@ -108,14 +139,53 @@
         .absolute {
             position: absolute;
         }
+
+        /* BACKGROUND EMOJIS CONTAINER */
+        .emoji-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* EACH EMOJI */
+        .emoji-bg span {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp linear infinite;
+            opacity: 0.6;
+        }
+
+        /* FLOAT ANIMATION */
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+            }
+
+            to {
+                transform: translateY(-10vh);
+            }
+        }
+
+        /* Make sure card stays above */
+        .card {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 
 <body>
 
+    <div class="emoji-bg" id="emojiBg"></div>
+
     <div class="card" id="card">
 
-        <h2>Yashii ❤️</h2>
+        <h2>Yashii <span>❤️</span></h2>
+
 
         <div class="text-area">
             <p id="text"></p>
@@ -257,6 +327,23 @@
                 clearInterval(touchInterval);
             });
 
+        }
+
+
+        /* EMOJI BACKGROUND GENERATOR */
+
+        const emojis = ["❤️", "💖", "💕", "💘", "💞", "💓", "💗", "💝", "💟", "😍"];
+        const emojiBg = document.getElementById("emojiBg");
+
+        for (let i = 0; i < 40; i++) {
+            let span = document.createElement("span");
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+            span.style.left = Math.random() * 100 + "vw";
+            span.style.animationDuration = (3 + Math.random() * 5) + "s";
+            span.style.fontSize = (16 + Math.random() * 20) + "px";
+
+            emojiBg.appendChild(span);
         }
 
     </script>
