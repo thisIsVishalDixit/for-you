@@ -4,28 +4,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Yashii ❤️</title>
+    <title>For You ❤️</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Allura&display=swap"
-        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        }
+
+        /* CARD CENTER */
+        .card {
+            width: 380px;
+            max-width: 90%;
+            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* TITLE */
+        .card h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* TEXT AREA */
+        .text-area {
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #text {
+            font-size: 16px;
+            line-height: 1.6;
+            transition: opacity 0.3s ease;
+        }
+
+        /* BUTTON AREA */
+        .button-area {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 22px;
+            margin: 5px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        /* PREV */
+        #prevBtn {
+            background: rgba(255, 255, 255, 0.4);
+            color: white;
+        }
+
+        /* NEXT */
+        #nextBtn {
+            background: white;
+            color: #ff4d6d;
+        }
+
+        /* YES BUTTON */
+        #yesBtn {
+            background: #00c853;
+            color: white;
+            font-size: 16px;
+            padding: 12px 30px;
+        }
+
+        /* NO BUTTON */
+        #noBtn {
+            background: #ff1744;
+            color: white;
+        }
+
+        /* HOVER EFFECT */
+        button:hover {
+            transform: scale(1.08);
+        }
+
+        /* ABSOLUTE NO BUTTON */
+        .absolute {
+            position: absolute;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="bg"></div>
-
     <div class="card" id="card">
-        <h1 class="heading">Yashii ❤️</h1>
-        <p id="text"></p>
 
-        <div id="buttons">
-            <button id="prevBtn">Previous</button>
-            <button id="nextBtn">Next ❤️</button>
+        <h2>Yashii ❤️</h2>
+
+        <div class="text-area">
+            <p id="text"></p>
         </div>
+
+        <div class="button-area" id="buttons">
+            <button id="prevBtn">Previous</button>
+            <button id="nextBtn">Next</button>
+        </div>
+
     </div>
 
-    <script src="script.js"></script>
+    <script>
+
+        const messages = [
+
+            "Sach bolu… mujhe kabhi nahi laga tha ki koi itna special ho sakta hai mere liye.",
+            "Pehle life bas chal rahi thi… routine thi… normal si.",
+            "Phir tum aaye… aur sab kuch dheere dheere change hone laga.",
+            "Ab har chhoti baat tumse share karne ka mann karta hai.",
+            "Koi funny moment ho… ya thoda sa sad feel karu… sabse pehle tum yaad aate ho.",
+            "Tumhari awaaz me ek ajeeb sa sukoon hai… jaise dimag ka noise band ho jaata hai.",
+            "Tumhari smile… pata nahi kyun… par genuinely mere dil ko halka kar deti hai.",
+            "Main perfect nahi hoon… kabhi overthink karta hoon… kabhi stupid ho jaata hoon…",
+            "Par ek cheez pakki hai… jo feel karta hoon woh fake nahi hai.",
+            "Mujhe tumhari care karna accha lagta hai… bina reason bhi tumhari fikr hoti hai.",
+            "Aur shayad yahi pyaar hota hai… jab kisi ki khushi apni khushi se zyada important lagne lage.",
+            "Mujhe future ka exact idea nahi hai…",
+            "Par agar future me tum saath ho… to mujhe kisi cheez ka darr nahi lagta.",
+            "Tum meri comfort ho… meri safe jagah ho… jahan main bina pretend kiye reh sakta hoon.",
+            "Main bas itna chahta hoon… jab bhi tumhe kisi apne ki zarurat ho…",
+            "Sabse pehle mera naam aaye.",
+            "Aur jab life kabhi thodi mushkil ho…",
+            "To main tumhara haath pakad kar kahu… 'Main hoon na.'",
+            "Isliye aaj dil se ek simple si baat poochni hai…",
+            "Kya tum meri life ka permanent part banogi? ❤️"
+
+        ];
+
+        let index = 0;
+
+        const text = document.getElementById("text");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const btnContainer = document.getElementById("buttons");
+        const card = document.getElementById("card");
+
+        /* UPDATE TEXT */
+        function updateText() {
+            text.style.opacity = 0;
+
+            setTimeout(() => {
+                text.innerText = messages[index];
+                text.style.opacity = 1;
+                prevBtn.disabled = index === 0;
+            }, 250);
+        }
+
+        updateText();
+
+        /* NEXT */
+        nextBtn.addEventListener("click", () => {
+            if (index < messages.length - 1) {
+                index++;
+                updateText();
+            } else {
+                showFinalButtons();
+            }
+        });
+
+        /* PREVIOUS */
+        prevBtn.addEventListener("click", () => {
+            if (index > 0) {
+                index--;
+                updateText();
+            }
+        });
+
+        /* FINAL */
+        function showFinalButtons() {
+
+            text.innerText = "Please choose honestly… 💖";
+
+            btnContainer.innerHTML = `
+        <div class="final-buttons">
+            <button id="yesBtn">Yes ❤️</button>
+            <button id="noBtn">No 🙈</button>
+        </div>
+    `;
+
+            const yesBtn = document.getElementById("yesBtn");
+            const noBtn = document.getElementById("noBtn");
+
+            /* YES */
+            yesBtn.addEventListener("click", () => {
+                text.innerHTML = `
+        Happy Valentine’s Day My Love ❤️\n\nYou just made my world complete.
+        `;
+                btnContainer.innerHTML = "";
+            });
+
+            /* MOVE NO FULL CARD */
+            function moveNoButton() {
+
+                noBtn.classList.add("absolute");
+
+                const cardWidth = card.clientWidth;
+                const cardHeight = card.clientHeight;
+
+                const btnWidth = noBtn.offsetWidth;
+                const btnHeight = noBtn.offsetHeight;
+
+                const padding = 20;
+
+                const maxX = cardWidth - btnWidth - padding;
+                const maxY = cardHeight - btnHeight - padding;
+
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+
+                noBtn.style.left = randomX + "px";
+                noBtn.style.top = randomY + "px";
+            }
+
+            noBtn.addEventListener("mouseenter", moveNoButton);
+
+            noBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                moveNoButton();
+            });
+
+            let touchInterval;
+
+            noBtn.addEventListener("touchstart", () => {
+                touchInterval = setInterval(moveNoButton, 150);
+            });
+
+            noBtn.addEventListener("touchend", () => {
+                clearInterval(touchInterval);
+            });
+
+        }
+
+    </script>
+
 </body>
 
 </html>
